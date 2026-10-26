@@ -1,0 +1,23 @@
+12. CREATE A TRRIGER THAT KPREVENTS DELETION OD EMPLOYESS BELONGING TO A PARTICULAR DEPARTMENT.
+
+
+Step 1: Create Trigger
+
+Example: Prevent deletion of employees belonging to Department 10.
+CREATE OR REPLACE TRIGGER PREVENT_DELETE
+BEFORE DELETE ON EMP
+FOR EACH ROW
+BEGIN
+    IF :OLD.DEPTNO = 10 THEN
+        RAISE_APPLICATION_ERROR
+        (-20001, 'Deletion Not Allowed');
+    END IF;
+END;
+/
+
+
+Step 2: Test Trigger
+
+
+DELETE FROM EMP
+WHERE EMPNO = 101;
